@@ -4,6 +4,9 @@ project(gbdk-tilemap-collision NONE)
 # GBDK Configuration
 set(GBDK_HOME "C:/gbdk")
 
+# Custom flags for lcc
+set(CUSTOM_FLAGS "")
+
 # Debug flags for lcc
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     set(DEBUG_FLAGS "-debug")
@@ -35,7 +38,7 @@ file(GLOB_RECURSE HEADERS CONFIGURE_DEPENDS "headers/*.h")
 # Build ROM target
 add_custom_command(
     OUTPUT ${CMAKE_BINARY_DIR}/rom.gb
-    COMMAND ${LCC} ${DEBUG_FLAGS} -I${CMAKE_SOURCE_DIR}/headers -o ${CMAKE_BINARY_DIR}/rom.gb ${SOURCES} ${ASMSOURCES}
+    COMMAND ${LCC} ${DEBUG_FLAGS} -I${CMAKE_SOURCE_DIR}/headers ${CUSTOM_FLAGS} -o ${CMAKE_BINARY_DIR}/rom.gb ${SOURCES} ${ASMSOURCES}
     DEPENDS ${SOURCES} ${ASMSOURCES} ${HEADERS}
     COMMENT "Building GB ROM: ${CMAKE_BINARY_DIR}/rom.gb"
 )
